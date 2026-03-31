@@ -1,0 +1,8 @@
+# Docker Ignore Fail - definuje veci, ktoré sa NEMAJÚ posielať do Google Cloud Run buildu
+.git
+.vscode
+.env
+.DS_Store
+*.md
+node_modules
+vercel.json
