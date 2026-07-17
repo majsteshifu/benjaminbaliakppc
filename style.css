@@ -538,39 +538,6 @@ body.nav-open .nav-toggle span:nth-child(3) {
     filter: contrast(1.06) brightness(1.1) saturate(1.05);
 }
 
-/* Plávajúce štítky pri fotke */
-.image-tag {
-    position: absolute;
-    padding: 0.55rem 1.1rem;
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    background: var(--nav-bg);
-    border: 1px solid var(--card-border);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    white-space: nowrap;
-    animation: floatTag 5s ease-in-out infinite;
-    z-index: 2;
-}
-
-.image-tag-1 {
-    top: 12%;
-    left: -8%;
-}
-
-.image-tag-2 {
-    bottom: 14%;
-    right: -6%;
-    animation-delay: -2.5s;
-}
-
-@keyframes floatTag {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-}
-
 /* Hero badge */
 .hero-badge {
     display: inline-flex;
@@ -1308,14 +1275,6 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
     .scroll-cue {
         display: none;
-    }
-
-    .image-tag-1 {
-        left: 2%;
-    }
-
-    .image-tag-2 {
-        right: 2%;
     }
 
     .title {
