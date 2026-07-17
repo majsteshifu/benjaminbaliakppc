@@ -32,8 +32,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <!-- AOS Animations CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- AOS Animations CSS (lokálne - žiadna závislosť na cudzom CDN) -->
+    <link href="vendor/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 
@@ -109,6 +109,51 @@
         }
       ]
     }
+    </script>
+
+    <!-- Google Consent Mode v2 + GA4.
+         Musí bežať PRED načítaním gtag.js, inak by sa cookies nastavili
+         skôr, než návštevník stihne odpovedať. Východiskový stav je
+         "denied" - meranie sa spustí až po kliknutí na Prijať. -->
+    <script>
+        // Sem doplň svoje GA4 Measurement ID (tvar G-XXXXXXXXXX).
+        // Kým je prázdne, GA4 sa vôbec nenačíta a lišta sa nezobrazí.
+        window.GA4_ID = '';
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+
+        gtag('consent', 'default', {
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
+            analytics_storage: 'denied',
+            functionality_storage: 'granted',
+            security_storage: 'granted',
+            wait_for_update: 500
+        });
+
+        // Obnovenie skôr uloženého rozhodnutia
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+            if (saved === 'granted') {
+                gtag('consent', 'update', {
+                    ad_storage: 'granted',
+                    ad_user_data: 'granted',
+                    ad_personalization: 'granted',
+                    analytics_storage: 'granted'
+                });
+            }
+            if (window.GA4_ID) {
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA4_ID;
+                document.head.appendChild(s);
+                gtag('js', new Date());
+                gtag('config', window.GA4_ID, { anonymize_ip: true });
+            }
+        })();
     </script>
 
     <!-- Theme Script (Early execution to prevent flash) -->
@@ -320,6 +365,20 @@
         </div>
     </section>
 
+    <!-- Cookies lišta -->
+    <div class="cookie-bar" id="cookie-bar" role="dialog" aria-live="polite" aria-label="Súhlas s cookies" hidden>
+        <div class="cookie-inner">
+            <div class="cookie-text">
+                <strong>Súhlas s cookies</strong>
+                <p>Tento web používa analytické cookies, aby som vedel, ako sa používa. Bez vášho súhlasu sa nespustia. Nevyhnutné fungovanie webu ich nepotrebuje.</p>
+            </div>
+            <div class="cookie-actions">
+                <button type="button" class="btn btn-secondary btn-cookie" id="cookie-reject">Odmietnuť</button>
+                <button type="button" class="btn btn-primary btn-cookie" id="cookie-accept">Prijať</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Animated Footer -->
     <footer class="site-footer">
         <div class="container footer-container">
@@ -348,8 +407,8 @@
         </div>
     </footer>
 
-    <!-- AOS Animations Script -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS Animations Script (lokálne) -->
+    <script src="vendor/aos.js"></script>
     <script>
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -430,6 +489,39 @@
                 });
             }
         }
+
+        // Cookies lišta.
+        // Zobrazí sa len ak je nastavené GA4_ID (bez merania nie je na čo
+        // pýtať súhlas) a návštevník sa ešte nerozhodol.
+        (function () {
+            const bar = document.getElementById('cookie-bar');
+            if (!bar) return;
+
+            let saved = null;
+            try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+            if (!window.GA4_ID || saved) return;
+
+            bar.hidden = false;
+            requestAnimationFrame(() => bar.classList.add('is-visible'));
+
+            const decide = (granted) => {
+                try { localStorage.setItem('cookie-consent', granted ? 'granted' : 'denied'); } catch (e) {}
+                if (granted && typeof gtag === 'function') {
+                    gtag('consent', 'update', {
+                        ad_storage: 'granted',
+                        ad_user_data: 'granted',
+                        ad_personalization: 'granted',
+                        analytics_storage: 'granted'
+                    });
+                }
+                bar.classList.remove('is-visible');
+                setTimeout(() => { bar.hidden = true; }, 300);
+            };
+
+            document.getElementById('cookie-accept').addEventListener('click', () => decide(true));
+            document.getElementById('cookie-reject').addEventListener('click', () => decide(false));
+        })();
 
         // Uvítacia animácia (Preloader)
         window.addEventListener('load', () => {

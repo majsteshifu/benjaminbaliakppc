@@ -538,6 +538,26 @@ body.nav-open .nav-toggle span:nth-child(3) {
     filter: contrast(1.06) brightness(1.1) saturate(1.05);
 }
 
+/* Svetlý režim: maska tu NESMIE byť.
+   Rozplývanie okrajov funguje len na tmavom podklade - fotka má tmavé
+   pozadie, takže na takmer bielej stránke by z masky vznikol tmavý kruh
+   okolo subjektu. Preto tu fotku normálne orámujeme. */
+[data-theme="light"] .image-frame img {
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-radius: 28px;
+    box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+}
+
+[data-theme="light"] .image-wrapper::before {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.28), rgba(139, 92, 246, 0.12), transparent 70%);
+    filter: blur(50px);
+}
+
+[data-theme="light"] .image-wrapper:hover::before {
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.38), rgba(139, 92, 246, 0.18), transparent 70%);
+}
+
 /* Hero badge */
 .hero-badge {
     display: inline-flex;
@@ -972,6 +992,82 @@ body.nav-open .nav-toggle span:nth-child(3) {
     border-color: var(--primary-color);
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* Cookies lišta */
+.cookie-bar {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+    z-index: 9997;
+    width: min(880px, calc(100% - 2rem));
+    padding: 1.5rem 1.8rem;
+    border-radius: 24px;
+    background: var(--nav-bg);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cookie-bar.is-visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+}
+
+.cookie-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.cookie-text strong {
+    display: block;
+    font-size: 1.05rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-color);
+}
+
+.cookie-text p {
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.cookie-actions {
+    display: flex;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+/* Obe možnosti zámerne rovnako dostupné - odmietnutie nesmie byť
+   schované ani ťažšie klikateľné než súhlas. */
+.btn-cookie {
+    padding: 0.7rem 1.6rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+    .cookie-inner {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.2rem;
+    }
+
+    .cookie-actions {
+        flex-direction: row;
+    }
+
+    .btn-cookie {
+        flex: 1;
+        text-align: center;
+    }
 }
 
 /* Enhanced Footer */
