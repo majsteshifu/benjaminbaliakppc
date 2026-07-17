@@ -8,6 +8,8 @@
     <meta name="description" content="PPC špecialista Benjamín Baliak. Správa kampaní Google Ads, Meta Ads a TikTok Ads, analytika GA4, AI riešenia a tvorba webov. Výkonnostný marketing zameraný na návratnosť investícií.">
     <meta name="author" content="Benjamín Baliak">
     <meta name="theme-color" content="#050505">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="canonical" href="https://www.benjaminbaliak.sk/">
 
     <!-- Open Graph (Facebook, LinkedIn). URL musia byť absolútne, inak sa náhľad nezobrazí. -->
@@ -36,6 +38,15 @@
     <link href="vendor/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Bez JavaScriptu by web ostal prázdny: preloader odkrýva JS
+         a aos.css skrýva [data-aos] obsah cez opacity:0. Toto je poistka. -->
+    <noscript>
+        <style>
+            .preloader, .grain, .scroll-progress { display: none !important; }
+            [data-aos] { opacity: 1 !important; transform: none !important; }
+        </style>
+    </noscript>
 
     <!-- Štruktúrované dáta pre vyhľadávače (schema.org) -->
     <script type="application/ld+json">
@@ -234,7 +245,7 @@
     <div class="marquee-scroller">
         <div class="marquee-track">
             <span>GOOGLE ADS ✦ META ADS ✦ DÁTOVÁ ANALYTIKA ✦ HEUREKA ✦ MERGADO ✦ PERFORMANCE MARKETING ✦ </span>
-            <span>GOOGLE ADS ✦ META ADS ✦ DÁTOVÁ ANALYTIKA ✦ HEUREKA ✦ MERGADO ✦ PERFORMANCE MARKETING ✦ </span>
+            <span aria-hidden="true">GOOGLE ADS ✦ META ADS ✦ DÁTOVÁ ANALYTIKA ✦ HEUREKA ✦ MERGADO ✦ PERFORMANCE MARKETING ✦ </span>
         </div>
     </div>
 
@@ -249,17 +260,17 @@
             <div class="about-stats" data-aos="zoom-in" data-aos-delay="200">
                 <div class="stat-card spotlight">
                     <div class="stat-icon">📈</div>
-                    <h4>Dátový prístup</h4>
+                    <h3>Dátový prístup</h3>
                     <p>Každé rozhodnutie vychádza z reálnych dát, GA4 a výsledkov.</p>
                 </div>
                 <div class="stat-card spotlight">
                     <div class="stat-icon">🎯</div>
-                    <h4>Focus na ROI</h4>
+                    <h3>Focus na ROI</h3>
                     <p>Neoptimalizujem pre kliky, ale pre maximálnu návratnosť (ROAS).</p>
                 </div>
                 <div class="stat-card spotlight">
                     <div class="stat-icon">🚀</div>
-                    <h4>Know-how agentúry</h4>
+                    <h3>Know-how agentúry</h3>
                     <p>Stratégie a postupy osvojené v profesionálnej agentúre Boosters.</p>
                 </div>
             </div>
