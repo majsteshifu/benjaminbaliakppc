@@ -6,6 +6,11 @@
     <title>Benjamín Baliak | PPC Špecialista</title>
     <!-- SEO Meta Tags -->
     <meta name="description" content="Benjamín Baliak - PPC špecialista. Zvyšujem výkonnosť vášho online predaja prostredníctvom Google Ads, Facebook Ads a dátovej analytiky.">
+    <meta name="theme-color" content="#050505">
+    <meta property="og:title" content="Benjamín Baliak | PPC Špecialista">
+    <meta property="og:description" content="Výkonnostný marketing postavený na dátach. Google Ads, Meta Ads, Heureka, GA4.">
+    <meta property="og:image" content="profile.jpg">
+    <meta property="og:type" content="website">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +19,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- Theme Script (Early execution to prevent flash) -->
     <script>
         const savedTheme = localStorage.getItem('theme');
@@ -27,26 +32,36 @@
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-content">
-            <span class="logo glow-text">BB.</span>
+            <span class="logo glow-text">BB</span>
         </div>
     </div>
+
+    <!-- Film grain overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Scroll progress -->
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
     <!-- Animated Background Gradients -->
     <div class="blob blob-1"></div>
     <div class="blob blob-2"></div>
     <div class="blob blob-3"></div>
+    <div class="grid-lines" aria-hidden="true"></div>
 
     <!-- Navigation -->
     <nav class="navbar" data-aos="fade-down">
         <div class="container nav-container">
-            <a href="#" class="logo">BB.</a>
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <ul class="nav-links">
+            <a href="#" class="logo">BB</a>
+            <div class="nav-right">
+                <ul class="nav-links" id="nav-links">
                     <li><a href="#about">O mne</a></li>
                     <li><a href="#services">Služby</a></li>
                     <li><a href="#contact" class="btn btn-outline">Kontakt</a></li>
                 </ul>
                 <button id="theme-toggle" class="theme-toggle" aria-label="Prepnúť režim">☀️</button>
+                <button id="nav-toggle" class="nav-toggle" aria-label="Otvoriť menu" aria-expanded="false" aria-controls="nav-links">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
         </div>
     </nav>
@@ -55,9 +70,10 @@
     <header class="hero container" id="hero">
         <div class="hero-inner">
             <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                <span class="hero-badge">Konzultant v agentúre Boosters</span>
                 <h1 class="title">Benjamín <span class="gradient-text">Baliak</span></h1>
                 <p class="description">
-                    PPC špecialista zameraný na výkonnostný marketing. Zvyšujem výkon vášho online predaja s dôrazom na návratnosť investícií (ROI). Aktuálne pôsobím aj ako konzultant v agentúre <a href="https://boosters.sk" target="_blank" class="gradient-text" style="font-weight: 800; text-decoration: none;">Boosters</a>.
+                    PPC špecialista zameraný na výkonnostný marketing. Zvyšujem výkon vášho online predaja s dôrazom na návratnosť investícií (ROI). Aktuálne pôsobím aj ako konzultant v agentúre <a href="https://boosters.sk" target="_blank" rel="noopener" class="gradient-text link-underline">Boosters</a>.
                 </p>
                 <div class="hero-buttons">
                     <a href="#contact" class="btn btn-primary">Začať spoluprácu</a>
@@ -66,10 +82,18 @@
             </div>
             <div class="hero-image" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                 <div class="image-wrapper">
-                    <img src="profile.jpg" alt="Benjamín Baliak - PPC Špecialista">
+                    <div class="image-frame">
+                        <picture>
+                            <source srcset="profile.webp" type="image/webp">
+                            <img src="profile.jpg" width="1000" height="1250" fetchpriority="high" alt="Benjamín Baliak - PPC Špecialista">
+                        </picture>
+                    </div>
+                    <div class="image-tag image-tag-1">Google Ads</div>
+                    <div class="image-tag image-tag-2">GA4</div>
                 </div>
             </div>
         </div>
+        <a href="#about" class="scroll-cue" aria-label="Posunúť nižšie"><span></span></a>
     </header>
 
     <!-- Infinite Marquee Section -->
@@ -89,17 +113,17 @@
                 <p>Mojím cieľom nikdy nie je iba „nakúpiť návštevnosť“. Web bez konverzií je len prázdna vizitka. Preto navrhujem stratégie, ktoré cielia na reálnych, platiacich zákazníkov a preklápajú kliknutia na tržby.</p>
             </div>
             <div class="about-stats" data-aos="zoom-in" data-aos-delay="200">
-                <div class="stat-card">
+                <div class="stat-card spotlight">
                     <div class="stat-icon">📈</div>
                     <h4>Dátový prístup</h4>
                     <p>Každé rozhodnutie vychádza z reálnych dát, GA4 a výsledkov.</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card spotlight">
                     <div class="stat-icon">🎯</div>
                     <h4>Focus na ROI</h4>
                     <p>Neoptimalizujem pre kliky, ale pre maximálnu návratnosť (ROAS).</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card spotlight">
                     <div class="stat-icon">🚀</div>
                     <h4>Know-how agentúry</h4>
                     <p>Stratégie a postupy osvojené v profesionálnej agentúre Boosters.</p>
@@ -115,49 +139,67 @@
             <div class="services-track">
                 <!-- Skupina pre nekonečné prehrávanie -->
                 <div class="services-group">
-                    <div class="service-card">
-                        <div class="service-icon">📈</div>
-                        <h3>Google Ads</h3>
-                        <p>Výkonnostné kampane vo vyhľadávaní a nákupoch, presne zacielené na vyhľadávajúce publikum s dôrazom na maximálnu konverziu.</p>
-                    </div>
-                    <div class="service-card">
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
                         <div class="service-icon">🎯</div>
                         <h3>Meta Ads</h3>
                         <p>Pokročilé a škálovateľné reklamné stratégie pre Facebook a Instagram, ktoré oslovujú správnu cieľovú skupinu a prinášajú reálne predaje.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">🛍️</div>
-                        <h3>Heureka a Mergado</h3>
-                        <p>Komplexná správa tovarových vyhľadávačov. Optimalizácia feedov cez Mergado a strategický bidding na Heureke pre váš e-shop.</p>
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
+                        <div class="service-icon">📈</div>
+                        <h3>Google Ads</h3>
+                        <p>Výkonnostné kampane vo vyhľadávaní a nákupoch, presne zacielené na vyhľadávajúce publikum s dôrazom na maximálnu konverziu.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>Analytika a Reporting</h3>
-                        <p>Presné nastavenie dát prostredníctvom Google Analytics 4. Získajte prehľadné a vizuálne reporty na vyhodnocovanie vašich kampaní.</p>
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
+                        <div class="service-icon">🎵</div>
+                        <h3>TikTok Ads</h3>
+                        <p>Kampane na najrýchlejšie rastúcej platforme. Kreatíva a cielenie prispôsobené publiku, ktoré klasická reklama neosloví.</p>
                     </div>
+                    <div class="service-card spotlight">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI riešenia pre vašu firmu</h3>
+                        <p>Automatizácia opakovanej práce, reporting a nástroje na mieru. Nasadím AI tam, kde vám reálne ušetrí čas alebo peniaze.</p>
+                    </div>
+                    <a href="https://majsteshifu.github.io/steiger/" target="_blank" rel="noopener" class="service-card service-card-link spotlight">
+                        <div class="service-icon">💻</div>
+                        <h3>Tvorba webov</h3>
+                        <p>Rýchle a moderné weby, ktoré predávajú. Pozrite si ukážku mojej práce — web pre Steiger Slovensko.</p>
+                        <span class="service-link-cue">Zobraziť ukážku →</span>
+                    </a>
                 </div>
                 <!-- Presná kópia pre loop efekt -->
-                <div class="services-group">
-                    <div class="service-card">
-                        <div class="service-icon">📈</div>
-                        <h3>Google Ads</h3>
-                        <p>Výkonnostné kampane vo vyhľadávaní a nákupoch, presne zacielené na vyhľadávajúce publikum s dôrazom na maximálnu konverziu.</p>
-                    </div>
-                    <div class="service-card">
+                <div class="services-group" aria-hidden="true">
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
                         <div class="service-icon">🎯</div>
                         <h3>Meta Ads</h3>
                         <p>Pokročilé a škálovateľné reklamné stratégie pre Facebook a Instagram, ktoré oslovujú správnu cieľovú skupinu a prinášajú reálne predaje.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">🛍️</div>
-                        <h3>Heureka a Mergado</h3>
-                        <p>Komplexná správa tovarových vyhľadávačov. Optimalizácia feedov cez Mergado a strategický bidding na Heureke pre váš e-shop.</p>
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
+                        <div class="service-icon">📈</div>
+                        <h3>Google Ads</h3>
+                        <p>Výkonnostné kampane vo vyhľadávaní a nákupoch, presne zacielené na vyhľadávajúce publikum s dôrazom na maximálnu konverziu.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">📊</div>
-                        <h3>Analytika a Reporting</h3>
-                        <p>Presné nastavenie dát prostredníctvom Google Analytics 4. Získajte prehľadné a vizuálne reporty na vyhodnocovanie vašich kampaní.</p>
+                    <div class="service-card spotlight">
+                        <span class="service-tag">PPC</span>
+                        <div class="service-icon">🎵</div>
+                        <h3>TikTok Ads</h3>
+                        <p>Kampane na najrýchlejšie rastúcej platforme. Kreatíva a cielenie prispôsobené publiku, ktoré klasická reklama neosloví.</p>
                     </div>
+                    <div class="service-card spotlight">
+                        <div class="service-icon">🤖</div>
+                        <h3>AI riešenia pre vašu firmu</h3>
+                        <p>Automatizácia opakovanej práce, reporting a nástroje na mieru. Nasadím AI tam, kde vám reálne ušetrí čas alebo peniaze.</p>
+                    </div>
+                    <a href="https://majsteshifu.github.io/steiger/" target="_blank" rel="noopener" tabindex="-1" class="service-card service-card-link spotlight">
+                        <div class="service-icon">💻</div>
+                        <h3>Tvorba webov</h3>
+                        <p>Rýchle a moderné weby, ktoré predávajú. Pozrite si ukážku mojej práce — web pre Steiger Slovensko.</p>
+                        <span class="service-link-cue">Zobraziť ukážku →</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -168,11 +210,11 @@
         <div class="contact-box" data-aos="zoom-in-up" data-aos-duration="800">
             <h2>Pripravený na <span class="gradient-text">rast</span>?</h2>
             <p>Spojme sa a spoločne navrhneme stratégiu, ktorá posunie váš biznis vpred. Či už ide o audit súčasných kampaní alebo návrh úplne nových riešení.</p>
-            
+
             <div class="contact-details">
                 <div class="contact-item">
                     <span class="contact-icon">✉️</span>
-                    <a href="mailto:benjamin.baliak@boosters.sk">benjamin.baliak@boosters.sk</a>
+                    <a href="mailto:baliakbenjamin@gmail.com">baliakbenjamin@gmail.com</a>
                 </div>
                 <div class="contact-item">
                     <span class="contact-icon">📞</span>
@@ -181,12 +223,11 @@
             </div>
 
             <div class="social-links-contact">
-                <a href="https://www.facebook.com/benjamin.baliakk/?locale=sk_SK" target="_blank" class="social-icon">Facebook</a>
-                <a href="https://www.instagram.com/majste.shi.fu/" target="_blank" class="social-icon">Instagram</a>
-                <a href="#" target="_blank" class="social-icon">LinkedIn</a>
+                <a href="https://www.facebook.com/benjamin.baliakk/?locale=sk_SK" target="_blank" rel="noopener" class="social-icon">Facebook</a>
+                <a href="https://www.instagram.com/majste.shi.fu/" target="_blank" rel="noopener" class="social-icon">Instagram</a>
             </div>
 
-            <a href="mailto:benjamin.baliak@boosters.sk" class="btn btn-primary btn-large glow-effect">Napísať e-mail</a>
+            <a href="mailto:baliakbenjamin@gmail.com" class="btn btn-primary btn-large glow-effect">Napísať e-mail</a>
         </div>
     </section>
 
@@ -194,12 +235,11 @@
     <footer class="site-footer">
         <div class="container footer-container">
             <div class="footer-brand" data-aos="fade-right">
-                <a href="#" class="logo">BB.</a>
+                <a href="#" class="logo">BB</a>
                 <p>Spájame výkonnostný marketing, analytiku a zmysel pre obchod. Úspech vášho projektu je pre mňa na prvom mieste.</p>
                 <div class="footer-socials">
-                    <a href="https://www.facebook.com/benjamin.baliakk/?locale=sk_SK" target="_blank">FB</a>
-                    <a href="https://www.instagram.com/majste.shi.fu/" target="_blank">IG</a>
-                    <a href="#" target="_blank">IN</a>
+                    <a href="https://www.facebook.com/benjamin.baliakk/?locale=sk_SK" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+                    <a href="https://www.instagram.com/majste.shi.fu/" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
                 </div>
             </div>
             <div class="footer-billing" data-aos="fade-left">
@@ -222,9 +262,11 @@
     <!-- AOS Animations Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         // Theme Toggle Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
-        
+
         // Nastavenie počiatočného stavu tlačidla
         if (document.documentElement.getAttribute('data-theme') === 'light') {
             themeToggleBtn.textContent = '🌙';
@@ -243,19 +285,77 @@
             }
         });
 
+        // Mobilné menu
+        const navToggle = document.getElementById('nav-toggle');
+        const navLinks = document.getElementById('nav-links');
+
+        navToggle.addEventListener('click', () => {
+            const open = document.body.classList.toggle('nav-open');
+            navToggle.setAttribute('aria-expanded', String(open));
+            navToggle.setAttribute('aria-label', open ? 'Zavrieť menu' : 'Otvoriť menu');
+        });
+
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                document.body.classList.remove('nav-open');
+                navToggle.setAttribute('aria-expanded', 'false');
+                navToggle.setAttribute('aria-label', 'Otvoriť menu');
+            }
+        });
+
+        // Navbar po scrolle + progress bar
+        const navbar = document.querySelector('.navbar');
+        const progress = document.querySelector('.scroll-progress span');
+
+        const onScroll = () => {
+            const y = window.scrollY;
+            navbar.classList.toggle('scrolled', y > 20);
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // Spotlight, ktorý sleduje kurzor nad kartami
+        if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+            document.querySelectorAll('.spotlight').forEach(card => {
+                card.addEventListener('pointermove', e => {
+                    const r = card.getBoundingClientRect();
+                    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+                    card.style.setProperty('--my', `${e.clientY - r.top}px`);
+                });
+            });
+
+            // Jemný 3D tilt fotky
+            const wrapper = document.querySelector('.image-wrapper');
+            const frame = document.querySelector('.image-frame');
+            if (wrapper && frame) {
+                wrapper.addEventListener('pointermove', e => {
+                    const r = wrapper.getBoundingClientRect();
+                    const px = (e.clientX - r.left) / r.width - 0.5;
+                    const py = (e.clientY - r.top) / r.height - 0.5;
+                    frame.style.transform = `rotateY(${px * 10}deg) rotateX(${-py * 10}deg) translateZ(0)`;
+                });
+                wrapper.addEventListener('pointerleave', () => {
+                    frame.style.transform = '';
+                });
+            }
+        }
+
         // Uvítacia animácia (Preloader)
         window.addEventListener('load', () => {
             const preloader = document.querySelector('.preloader');
             setTimeout(() => {
                 preloader.classList.add('loaded');
-            }, 1200); // 1.2 sekundy ukazuje logo a následne sa odkrýva web
+            }, reduceMotion ? 0 : 700);
         });
 
         AOS.init({
             once: true,
             offset: 100,
             duration: 800,
-            easing: 'ease-out-cubic'
+            easing: 'ease-out-cubic',
+            disable: reduceMotion
         });
     </script>
 </body>
