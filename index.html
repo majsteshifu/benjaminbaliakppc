@@ -128,13 +128,17 @@
     }
     </script>
 
-    <!-- Google Consent Mode v2 + GA4.
-         Musí bežať PRED načítaním gtag.js, inak by sa cookies nastavili
-         skôr, než návštevník stihne odpovedať. Východiskový stav je
-         "denied" - meranie sa spustí až po kliknutí na Prijať. -->
+    <!-- Google Consent Mode v2 + Google Tag Manager.
+         Consent sa MUSÍ nastaviť pred načítaním GTM, inak by tagy
+         v kontajneri stihli nastaviť cookies skôr, než návštevník
+         odpovie. Východiskový stav je "denied".
+
+         GA4 nasadzuj ako tag VNÚTRI GTM kontajnera, nie tu. -->
     <script>
-        // Sem doplň svoje GA4 Measurement ID (tvar G-XXXXXXXXXX).
-        // Kým je prázdne, GA4 sa vôbec nenačíta a lišta sa nezobrazí.
+        // GTM Container ID
+        window.GTM_ID = 'GTM-N756WC72';
+
+        // Priame GA4 - použi LEN ak nepoužívaš GTM (tvar G-XXXXXXXXXX).
         window.GA4_ID = '';
 
         window.dataLayer = window.dataLayer || [];
@@ -150,8 +154,8 @@
             wait_for_update: 500
         });
 
-        // Obnovenie skôr uloženého rozhodnutia
         (function () {
+            // Obnovenie skôr uloženého rozhodnutia
             var saved = null;
             try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
             if (saved === 'granted') {
@@ -162,7 +166,21 @@
                     analytics_storage: 'granted'
                 });
             }
-            if (window.GA4_ID) {
+
+            // Google Tag Manager
+            if (window.GTM_ID) {
+                dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var g = document.createElement('script');
+                g.async = true;
+                g.src = 'https://www.googletagmanager.com/gtm.js?id=' + window.GTM_ID;
+                document.head.appendChild(g);
+            }
+
+            // Poistka proti dvojitému meraniu: ak beží GTM, priame GA4 sa preskočí.
+            if (window.GA4_ID && window.GTM_ID) {
+                console.warn('Nastavené GTM_ID aj GA4_ID naraz. Priame GA4 sa preskakuje, ' +
+                             'aby sa návštevy nepočítali dvakrát - nasaď GA4 ako tag v GTM.');
+            } else if (window.GA4_ID) {
                 var s = document.createElement('script');
                 s.async = true;
                 s.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.GA4_ID;
@@ -182,6 +200,13 @@
     </script>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript). ID je tu doslovne zamerne:
+         bez JS sa window.GTM_ID precitat neda. Pri zmene kontajnera
+         treba prepisat aj tento riadok. -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N756WC72"
+        height="0" width="0" style="display:none;visibility:hidden"
+        title="Google Tag Manager"></iframe></noscript>
+
     <!-- Preloader -->
     <div class="preloader">
         <div class="preloader-content">
@@ -519,7 +544,7 @@
             let saved = null;
             try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
 
-            if (!window.GA4_ID || saved) return;
+            if ((!window.GA4_ID && !window.GTM_ID) || saved) return;
 
             bar.hidden = false;
             requestAnimationFrame(() => bar.classList.add('is-visible'));
