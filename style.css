@@ -779,11 +779,29 @@ body.nav-open .nav-toggle span:nth-child(3) {
     letter-spacing: -1.5px;
 }
 
+/* Pás služieb: natívny scroll + ťahanie myšou.
+   Zámerne to NIE je CSS animácia - tú sa ťahať nedá a na dotykových
+   zariadeniach by bojovala s natívnym posunom. Posun rieši JS
+   cez scrollLeft, takže myš, prst aj klávesnica fungujú rovnako. */
 .services-scroller {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     padding: 2rem 0;
+    cursor: grab;
+    scroll-behavior: auto;   /* prebíja globálne smooth, inak ťahanie drhne */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.services-scroller::-webkit-scrollbar {
+    display: none;
+}
+
+.services-scroller.is-dragging {
+    cursor: grabbing;
+    user-select: none;
 }
 
 .services-track {
@@ -796,16 +814,6 @@ body.nav-open .nav-toggle span:nth-child(3) {
     display: flex;
     gap: 2.5rem;
     flex-shrink: 0;
-    animation: infiniteScroll 25s linear infinite;
-}
-
-.services-track:hover .services-group {
-    animation-play-state: paused;
-}
-
-@keyframes infiniteScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-100% - 2.5rem)); }
 }
 
 .service-card {
@@ -836,27 +844,43 @@ body.nav-open .nav-toggle span:nth-child(3) {
     border: 1px solid rgba(34, 211, 238, 0.25);
 }
 
-/* Karta, ktorá je zároveň odkaz */
-.service-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+/* Akcie v karte služby */
+.service-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    flex-wrap: wrap;
+    margin-top: 1.8rem;
 }
 
-.service-card-link:hover {
-    border-color: rgba(139, 92, 246, 0.6);
+.service-cta {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.28);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(139, 92, 246, 0.45);
 }
 
 .service-link-cue {
     display: inline-block;
-    margin-top: 1.2rem;
     font-weight: 600;
+    text-decoration: none;
     color: var(--secondary-color);
     transition: transform 0.3s ease;
 }
 
-.service-card-link:hover .service-link-cue {
-    transform: translateX(6px);
+.service-link-cue:hover {
+    transform: translateX(4px);
 }
 
 .service-card:hover {
