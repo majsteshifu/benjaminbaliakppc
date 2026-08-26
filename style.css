@@ -12,6 +12,10 @@
     --hover-border: rgba(255, 255, 255, 0.2);
     --spotlight: rgba(59, 130, 246, 0.16);
     --grain-opacity: 0.035;
+    /* Tlačidlá majú biely text, preto potrebujú tmavší odtieň než odkazy:
+       biela na #3b82f6 má len 3.68:1, na #2563eb 5.17:1 (norma je 4.5:1). */
+    --btn-from: #2563eb;
+    --btn-to: #7c3aed;
     --font-family: 'Outfit', sans-serif;
 }
 
@@ -26,6 +30,11 @@
     --hover-border: rgba(0, 0, 0, 0.15);
     --spotlight: rgba(59, 130, 246, 0.1);
     --grain-opacity: 0.02;
+    /* Na svetlom podklade má #3b82f6 len 3.52:1 - pod normou. Tmavšie
+       odtiene majú 4.94:1 a 5.45:1. V tmavom režime by boli naopak
+       horšie, preto sa menia iba tu. */
+    --primary-color: #2563eb;
+    --secondary-color: #7c3aed;
 }
 
 /* Film grain - jemná statická textúra cez celý web.
@@ -121,6 +130,8 @@ button:focus-visible {
 .theme-toggle {
     background: transparent;
     border: none;
+    width: 44px;
+    height: 44px;
     font-size: 1.5rem;
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -207,7 +218,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+    transition: transform 0.55s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .preloader-content {
@@ -341,6 +352,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
     align-items: center;
 }
 
+/* min-height 44px: dotykový cieľ mal 22px, čo je pod hranicou,
+   pri ktorej sa dá spoľahlivo trafiť prstom. */
 .nav-links a {
     color: var(--text-color);
     text-decoration: none;
@@ -348,12 +361,15 @@ body.nav-open .nav-toggle span:nth-child(3) {
     font-size: 1.05rem;
     position: relative;
     transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
 }
 
 .nav-links a::after {
     content: '';
     position: absolute;
-    bottom: -4px;
+    bottom: 8px;
     left: 0;
     width: 0;
     height: 2px;
@@ -381,7 +397,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--btn-from), var(--btn-to));
     color: white;
     box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
 }
@@ -861,8 +877,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
     font-size: 0.95rem;
     text-decoration: none;
     color: #fff;
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.28);
+    background: linear-gradient(135deg, var(--btn-from), var(--btn-to));
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.28);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -873,6 +889,7 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .service-link-cue {
     display: inline-block;
+    padding: 9px 0;
     font-weight: 600;
     text-decoration: none;
     color: var(--secondary-color);
@@ -985,6 +1002,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
+    display: inline-block;
+    padding: 6px 0;
 }
 
 .contact-item a:hover {
@@ -1012,8 +1031,8 @@ body.nav-open .nav-toggle span:nth-child(3) {
 
 .social-icon:hover {
     color: #fff;
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+    background: var(--btn-from);
+    border-color: var(--btn-from);
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
 }
@@ -1153,11 +1172,11 @@ body.nav-open .nav-toggle span:nth-child(3) {
 }
 
 .footer-socials a:hover {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    background: linear-gradient(135deg, var(--btn-from), var(--btn-to));
     color: #fff;
-    border-color: var(--primary-color);
+    border-color: var(--btn-from);
     transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
 }
 
 .footer-billing {
